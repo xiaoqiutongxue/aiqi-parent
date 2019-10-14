@@ -1,16 +1,15 @@
 package cn.itsource.aiqi.domain;
 
-
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -63,6 +62,6 @@ public class Brand implements Serializable {
     private String logo;
 
     @TableField(exist = false) // 操作表做增删改的时候忽略这个字段
-    private ProductType productType;
+    private cn.itsource.aiqi.domain.ProductType productType;
 
 }

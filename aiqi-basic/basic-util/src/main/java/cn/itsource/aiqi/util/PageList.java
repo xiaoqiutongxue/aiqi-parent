@@ -3,7 +3,10 @@ package cn.itsource.aiqi.util;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * 分页工具类
+ * @author xiaoqiu
+ */
 public class PageList<T> {
 
     private Long total = 0L;

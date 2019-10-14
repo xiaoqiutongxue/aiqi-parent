@@ -1,4 +1,4 @@
-package cn.itsource.aiqi.domain;
+package cn.itsource.aiqi.doqi;
 
 public class User {
 

@@ -15,6 +15,7 @@
         <module>aiqi-zuul</module>
         <module>aiqi-config-server</module>
         <module>aiqi-product-parent</module>
+        <module>aiqi-common-parent</module>
     </modules>
 
     <properties>

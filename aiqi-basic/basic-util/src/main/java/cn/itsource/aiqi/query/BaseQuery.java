@@ -1,5 +1,6 @@
 package cn.itsource.aiqi.query;
 
+
 public class BaseQuery {
 
     private Integer page;//pageNum

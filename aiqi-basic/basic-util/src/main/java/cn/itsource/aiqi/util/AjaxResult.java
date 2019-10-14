@@ -1,6 +1,9 @@
 package cn.itsource.aiqi.util;
 
-
+/**
+ * Ajax请求结果封装的工具类
+ * @author xiaoqiu
+ */
 public class AjaxResult {
 
     private Boolean success = true;

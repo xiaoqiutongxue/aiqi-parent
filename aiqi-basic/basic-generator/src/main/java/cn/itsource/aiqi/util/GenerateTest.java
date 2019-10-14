@@ -15,7 +15,7 @@ public class GenerateTest {
 
     public static void main(String[] args) {
 
-        ResourceBundle rb =  ResourceBundle.getBundle("generate-product");
+        final ResourceBundle rb =  ResourceBundle.getBundle("generate-product");
 
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
@@ -23,7 +23,7 @@ public class GenerateTest {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         //配置项目路径
-        String projectPath = System.getProperty("user.dir"); //aiqi-parent的根目录
+        final String projectPath = System.getProperty("user.dir"); //aiqi-parent的根目录
         //加载配置文件
         gc.setOutputDir(projectPath + rb.getString("outputDir"));
         gc.setAuthor(rb.getString("author"));

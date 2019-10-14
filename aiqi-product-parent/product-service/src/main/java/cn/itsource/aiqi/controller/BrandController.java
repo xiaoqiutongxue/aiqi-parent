@@ -6,8 +6,6 @@ import cn.itsource.aiqi.query.BrandQuery;
 import cn.itsource.aiqi.util.AjaxResult;
 import cn.itsource.aiqi.util.PageList;
 import cn.itsource.aiqi.util.StrUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
