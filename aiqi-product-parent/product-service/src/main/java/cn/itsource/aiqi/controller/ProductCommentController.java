@@ -1,8 +1,8 @@
 package cn.itsource.aiqi.controller;
 
-import cn.itsource.aiqi.service.IProductService;
-import cn.itsource.aiqi.domain.Product;
-import cn.itsource.aiqi.query.ProductQuery;
+import cn.itsource.aiqi.service.IProductCommentService;
+import cn.itsource.aiqi.domain.ProductComment;
+import cn.itsource.aiqi.query.ProductCommentQuery;
 import cn.itsource.aiqi.util.AjaxResult;
 import cn.itsource.aiqi.util.PageList;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/productComment")
+public class ProductCommentController {
     @Autowired
-    public IProductService productService;
+    public IProductCommentService productCommentService;
 
     /**
     * 保存和修改公用的
     */
     @RequestMapping(value="/add",method= RequestMethod.POST)
-    public AjaxResult save(@RequestBody Product product){
+    public AjaxResult save(@RequestBody ProductComment productComment){
         try {
-            if(product.getId()!=null){
-                productService.updateById(product);
+            if(productComment.getId()!=null){
+                productCommentService.updateById(productComment);
             }else{
-                productService.save(product);
+                productCommentService.save(productComment);
             }
             return AjaxResult.me();
         } catch (Exception e) {
@@ -38,11 +38,13 @@ public class ProductController {
 
     /**
     * 删除对象信息
+    * @param id
+    * @return
     */
     @RequestMapping(value="/delete/{id}",method=RequestMethod.DELETE)
     public AjaxResult delete(@PathVariable("id") Integer id){
         try {
-            productService.removeById(id);
+            productCommentService.removeById(id);
             return AjaxResult.me();
         } catch (Exception e) {
         e.printStackTrace();
@@ -52,19 +54,20 @@ public class ProductController {
 
     //获取
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Product get(@PathVariable("id") Long id)
+    public ProductComment get(@PathVariable("id") Long id)
     {
-        return productService.getById(id);
+        return productCommentService.getById(id);
     }
 
 
     /**
     * 查看所有
+    * @return
     */
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<Product> list(){
+    public List<ProductComment> list(){
 
-        return productService.list(null);
+        return productCommentService.list(null);
     }
 
 
@@ -72,8 +75,10 @@ public class ProductController {
     * 分页查询数据
     */
     @RequestMapping(value = "/json",method = RequestMethod.POST)
-    public PageList<Product> json(@RequestBody ProductQuery query)
+    public PageList<ProductComment> json(@RequestBody ProductCommentQuery query)
     {
-        return productService.queryPage(query);
+        Page<ProductComment> page = new Page<ProductComment>(query.getPage(),query.getRows());
+        IPage<ProductComment> ipage = productCommentService.page(page);
+        return new PageList<ProductComment>(ipage.getTotal(),ipage.getRecords());
     }
 }

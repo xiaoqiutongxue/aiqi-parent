@@ -7,18 +7,16 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_brand")
-@ToString
-public class Brand implements Serializable {
+@TableName("t_product_comment")
+public class ProductComment implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -30,38 +28,31 @@ public class Brand implements Serializable {
     private Long updateTime;
 
     /**
-     * 用户姓名
+     * 订单
      */
-    private String name;
+    @TableField("orderId")
+    private Long orderId;
 
     /**
-     * 英文名
+     * 商品ID
      */
-    @TableField("englishName")
-    private String englishName;
+    @TableField("productId")
+    private Long productId;
 
     /**
-     * 首字母
+     * 得分
      */
-    @TableField("firstLetter")
-    private String firstLetter;
-
-    private String description;
+    private Integer score;
 
     /**
-     * 商品分类ID
+     * 评论
      */
-    private Long productTypeId;
-
-    @TableField("sortIndex")
-    private Integer sortIndex;
+    private String comment;
 
     /**
-     * 品牌LOGO
+     * 等级
      */
-    private String logo;
+    private Integer level;
 
-    @TableField(exist = false) // 操作表做增删改的时候忽略这个字段
-    private ProductType productType;
 
 }

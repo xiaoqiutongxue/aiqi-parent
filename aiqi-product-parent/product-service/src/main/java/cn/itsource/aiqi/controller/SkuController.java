@@ -1,8 +1,8 @@
 package cn.itsource.aiqi.controller;
 
-import cn.itsource.aiqi.service.IProductService;
-import cn.itsource.aiqi.domain.Product;
-import cn.itsource.aiqi.query.ProductQuery;
+import cn.itsource.aiqi.service.ISkuService;
+import cn.itsource.aiqi.domain.Sku;
+import cn.itsource.aiqi.query.SkuQuery;
 import cn.itsource.aiqi.util.AjaxResult;
 import cn.itsource.aiqi.util.PageList;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/sku")
+public class SkuController {
     @Autowired
-    public IProductService productService;
+    public ISkuService skuService;
 
     /**
     * 保存和修改公用的
     */
     @RequestMapping(value="/add",method= RequestMethod.POST)
-    public AjaxResult save(@RequestBody Product product){
+    public AjaxResult save(@RequestBody Sku sku){
         try {
-            if(product.getId()!=null){
-                productService.updateById(product);
+            if(sku.getId()!=null){
+                skuService.updateById(sku);
             }else{
-                productService.save(product);
+                skuService.save(sku);
             }
             return AjaxResult.me();
         } catch (Exception e) {
@@ -42,7 +42,7 @@ public class ProductController {
     @RequestMapping(value="/delete/{id}",method=RequestMethod.DELETE)
     public AjaxResult delete(@PathVariable("id") Integer id){
         try {
-            productService.removeById(id);
+            skuService.removeById(id);
             return AjaxResult.me();
         } catch (Exception e) {
         e.printStackTrace();
@@ -52,9 +52,9 @@ public class ProductController {
 
     //获取
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Product get(@PathVariable("id") Long id)
+    public Sku get(@PathVariable("id") Long id)
     {
-        return productService.getById(id);
+        return skuService.getById(id);
     }
 
 
@@ -62,9 +62,9 @@ public class ProductController {
     * 查看所有
     */
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<Product> list(){
+    public List<Sku> list(){
 
-        return productService.list(null);
+        return skuService.list(null);
     }
 
 
@@ -72,8 +72,10 @@ public class ProductController {
     * 分页查询数据
     */
     @RequestMapping(value = "/json",method = RequestMethod.POST)
-    public PageList<Product> json(@RequestBody ProductQuery query)
+    public PageList<Sku> json(@RequestBody SkuQuery query)
     {
-        return productService.queryPage(query);
+        Page<Sku> page = new Page<Sku>(query.getPage(),query.getRows());
+        IPage<Sku> ipage = skuService.page(page);
+        return new PageList<Sku>(ipage.getTotal(),ipage.getRecords());
     }
 }

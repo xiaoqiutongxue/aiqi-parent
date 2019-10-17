@@ -1,8 +1,8 @@
 package cn.itsource.aiqi.controller;
 
-import cn.itsource.aiqi.service.IProductService;
-import cn.itsource.aiqi.domain.Product;
-import cn.itsource.aiqi.query.ProductQuery;
+import cn.itsource.aiqi.service.ISpecificationService;
+import cn.itsource.aiqi.domain.Specification;
+import cn.itsource.aiqi.query.SpecificationQuery;
 import cn.itsource.aiqi.util.AjaxResult;
 import cn.itsource.aiqi.util.PageList;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/specification")
+public class SpecificationController {
     @Autowired
-    public IProductService productService;
+    public ISpecificationService specificationService;
 
     /**
     * 保存和修改公用的
     */
     @RequestMapping(value="/add",method= RequestMethod.POST)
-    public AjaxResult save(@RequestBody Product product){
+    public AjaxResult save(@RequestBody Specification specification){
         try {
-            if(product.getId()!=null){
-                productService.updateById(product);
+            if(specification.getId()!=null){
+                specificationService.updateById(specification);
             }else{
-                productService.save(product);
+                specificationService.save(specification);
             }
             return AjaxResult.me();
         } catch (Exception e) {
@@ -42,7 +42,7 @@ public class ProductController {
     @RequestMapping(value="/delete/{id}",method=RequestMethod.DELETE)
     public AjaxResult delete(@PathVariable("id") Integer id){
         try {
-            productService.removeById(id);
+            specificationService.removeById(id);
             return AjaxResult.me();
         } catch (Exception e) {
         e.printStackTrace();
@@ -52,9 +52,9 @@ public class ProductController {
 
     //获取
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Product get(@PathVariable("id") Long id)
+    public Specification get(@PathVariable("id") Long id)
     {
-        return productService.getById(id);
+        return specificationService.getById(id);
     }
 
 
@@ -62,9 +62,9 @@ public class ProductController {
     * 查看所有
     */
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<Product> list(){
+    public List<Specification> list(){
 
-        return productService.list(null);
+        return specificationService.list(null);
     }
 
 
@@ -72,8 +72,10 @@ public class ProductController {
     * 分页查询数据
     */
     @RequestMapping(value = "/json",method = RequestMethod.POST)
-    public PageList<Product> json(@RequestBody ProductQuery query)
+    public PageList<Specification> json(@RequestBody SpecificationQuery query)
     {
-        return productService.queryPage(query);
+        Page<Specification> page = new Page<Specification>(query.getPage(),query.getRows());
+        IPage<Specification> ipage = specificationService.page(page);
+        return new PageList<Specification>(ipage.getTotal(),ipage.getRecords());
     }
 }
