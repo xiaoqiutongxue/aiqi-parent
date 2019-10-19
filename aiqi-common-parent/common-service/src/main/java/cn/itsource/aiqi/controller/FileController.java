@@ -17,7 +17,7 @@ public class FileController {
      * @return
      */
     @PostMapping("/file")
-    public AjaxResult upload(MultipartFile file){
+    public AjaxResult upload(@RequestParam("file") MultipartFile file){
 
         try {
             byte[] content = file.getBytes();//获取文件内容
@@ -42,13 +42,11 @@ public class FileController {
      */
     @DeleteMapping("/file")
     public AjaxResult delete(String fileId){
-        // fileId = /group1/M00/00/01/rBAEz12l5LGAYFq4AABT5bbowSw350.jpg
-        // group = group1
-        // fileName = M00/00/01/rBAEz12l5LGAYFq4AABT5bbowSw350.jpg
+
 
 
         try {
-            //     group1/M00/00/01/rBAEz12l5LGAYFq4AABT5bbowSw350.jpg
+
             fileId = fileId.substring(1);
             int index = fileId.indexOf("/");
             String group = fileId.substring(0,index);
